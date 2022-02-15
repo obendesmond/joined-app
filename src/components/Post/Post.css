@@ -26,6 +26,9 @@
 
 .post__body{
     overflow-wrap: break-word;
+    padding:10px 20px;
+    text-align: left;
+    margin: 0 40px;
 }
 
 .post__buttons {

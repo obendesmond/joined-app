@@ -9,27 +9,43 @@ import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 
 // components
 import InputOption from "../../components/InputOption/InputOption";
+import Post from "../../components/Post/Post";
+
+import { db } from "../../backend/firebase";
+import { collection, addDoc, query, onSnapshot } from "firebase/firestore";
+import { getData } from "../../backend/crud";
+
 import "./Feed.css";
-import Post from "../../components/Posts/Post";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
+  const [input, setInput] = useState("");
 
-  useEffect(() => {}, [posts]);
+  useEffect(() => {
+    const q = query(collection(db, "posts"));
+    const unsub = onSnapshot(q, querySnapshot => {
+      const prePosts = [];
+      querySnapshot.forEach(doc => {
+        prePosts.push({ ...doc.data(), id: doc.id });
+      });
+      setPosts(prePosts);
+    });
 
-  const sendPost = e => {
+    return () => unsub();
+  }, []);
+
+  const sendPost = async e => {
     e.preventDefault();
-    alert("workss...");
-    setPosts([
-      ...posts,
-      {
-        name: "Desmond Oben",
-        description: "This is a test",
-        message: "wow it worked",
-      },
-    ]);
 
-    console.log(posts);
+    await addDoc(collection(db, "posts"), {
+      name: "Desmond Oben",
+      description: "This is a firebase test",
+      message: input,
+      photoUrl: "",
+      timestamp: "23-342-22",
+    });
+
+    setInput("");
   };
 
   return (
@@ -38,7 +54,12 @@ function Feed() {
         <div className="feed__input">
           <CreateIcon />
           <form>
-            <input type="text" placeholder="type a message" />
+            <input
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              type="text"
+              placeholder="type a message"
+            />
             <button onClick={sendPost} type="submit">
               Send
             </button>
@@ -57,18 +78,15 @@ function Feed() {
       </div>
 
       {/* posts */}
-      {posts.map(post => {
+      {posts.map(({ id, name, description, message, photoUrl }) => (
         <Post
-          name={post.name}
-          description={post.description}
-          message={post.message}
-        />;
-      })}
-      <Post
-        name="Desmond Oben"
-        description="This is a test"
-        message="Wow this worked"
-      />
+          key={id}
+          name={name}
+          description={description}
+          message={message}
+          photoUrl={photoUrl}
+        />
+      ))}
     </div>
   );
 }
