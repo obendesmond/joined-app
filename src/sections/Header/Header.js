@@ -10,7 +10,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
-import HeaderOption from "../HeaderOption/HeaderOption";
+import HeaderOption from "../../components/HeaderOption/HeaderOption";
 
 function Header() {
   return (
