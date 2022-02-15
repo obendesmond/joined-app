@@ -6,4 +6,5 @@
 }
 .app__body{
     display: flex;
+    margin-top: 20px;
 }
