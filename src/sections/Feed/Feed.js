@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // mui icons
 import CreateIcon from "@mui/icons-material/Create";
@@ -10,8 +10,28 @@ import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 // components
 import InputOption from "../../components/InputOption/InputOption";
 import "./Feed.css";
+import Post from "../../components/Posts/Post";
 
 function Feed() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {}, [posts]);
+
+  const sendPost = e => {
+    e.preventDefault();
+    alert("workss...");
+    setPosts([
+      ...posts,
+      {
+        name: "Desmond Oben",
+        description: "This is a test",
+        message: "wow it worked",
+      },
+    ]);
+
+    console.log(posts);
+  };
+
   return (
     <div className="feed">
       <div className="feed__inputContainer">
@@ -19,7 +39,9 @@ function Feed() {
           <CreateIcon />
           <form>
             <input type="text" placeholder="type a message" />
-            <button type="submit">Send</button>
+            <button onClick={sendPost} type="submit">
+              Send
+            </button>
           </form>
         </div>
         <div className="feed__inputOptions">
@@ -33,6 +55,20 @@ function Feed() {
           />
         </div>
       </div>
+
+      {/* posts */}
+      {posts.map(post => {
+        <Post
+          name={post.name}
+          description={post.description}
+          message={post.message}
+        />;
+      })}
+      <Post
+        name="Desmond Oben"
+        description="This is a test"
+        message="Wow this worked"
+      />
     </div>
   );
 }

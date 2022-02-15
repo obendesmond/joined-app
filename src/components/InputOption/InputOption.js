@@ -11,4 +11,8 @@ function InputOption({ Icon, title, color }) {
   );
 }
 
+InputOption.defaultProps = {
+  color: "gray",
+};
+
 export default InputOption;
