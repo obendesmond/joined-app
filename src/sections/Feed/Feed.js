@@ -11,39 +11,36 @@ import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import InputOption from "../../components/InputOption/InputOption";
 import Post from "../../components/Post/Post";
 
-import { db } from "../../backend/firebase";
-import { collection, addDoc, query, onSnapshot } from "firebase/firestore";
-import { getData } from "../../backend/crud";
+import { db, serverTimestamp } from "../../backend/firebase";
 
 import "./Feed.css";
+import addDocument from "../../backend/addDocument";
+import getAllDocuments from "../../backend/getAllDocuments";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
+  const collectionName = "posts";
 
   useEffect(() => {
-    const q = query(collection(db, "posts"));
-    const unsub = onSnapshot(q, querySnapshot => {
-      const prePosts = [];
-      querySnapshot.forEach(doc => {
-        prePosts.push({ ...doc.data(), id: doc.id });
-      });
-      setPosts(prePosts);
+    getAllDocuments(db, collectionName, setPosts, {
+      name: "timestamp",
+      value: "desc",
     });
-
-    return () => unsub();
   }, []);
 
   const sendPost = async e => {
     e.preventDefault();
 
-    await addDoc(collection(db, "posts"), {
+    const post = {
       name: "Desmond Oben",
       description: "This is a firebase test",
       message: input,
       photoUrl: "",
-      timestamp: "23-342-22",
-    });
+      timestamp: serverTimestamp(),
+    };
+    // add post to posts document
+    addDocument(db, collectionName, post);
 
     setInput("");
   };
@@ -78,15 +75,17 @@ function Feed() {
       </div>
 
       {/* posts */}
-      {posts.map(({ id, name, description, message, photoUrl }) => (
-        <Post
-          key={id}
-          name={name}
-          description={description}
-          message={message}
-          photoUrl={photoUrl}
-        />
-      ))}
+
+      {posts &&
+        posts.map(({ id, name, description, message, photoUrl }) => (
+          <Post
+            key={id}
+            name={name}
+            description={description}
+            message={message}
+            photoUrl={photoUrl}
+          />
+        ))}
     </div>
   );
 }
