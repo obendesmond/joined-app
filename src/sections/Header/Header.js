@@ -51,11 +51,7 @@ function Header() {
         <HeaderOption Icon={BusinessCenterIcon} title="Jobs" />
         <HeaderOption Icon={ChatIcon} title="Messaging" />
         <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-        <HeaderOption
-          avatar="https://mui.com/static/images/avatar/2.jpg"
-          title="me(out)"
-          onClick={logoutOfApp}
-        />
+        <HeaderOption avatar title="me(out)" onClick={logoutOfApp} />
       </div>
     </div>
   );

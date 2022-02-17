@@ -1,9 +1,13 @@
-import { Avatar } from "@mui/material";
 import React from "react";
+import { Avatar } from "@mui/material";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 
 import "./Sidebar.css";
 
 function Sidebar() {
+  const user = useSelector(selectUser);
+
   const recentItem = topic => (
     <div className="sidebar__recentItem">
       <span className="sidebar__hash">#</span>
@@ -16,11 +20,16 @@ function Sidebar() {
       <div className="sidebar__top">
         <img
           src="https://img.freepik.com/free-photo/abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background_1258-28311.jpg?size=626&ext=jpg"
-          alt="backgroundImage"
+          alt="no photoURL"
         />
-        <Avatar className="sidebar__avatar" />
-        <h2>Desmond Oben</h2>
-        <h4>obendesmond2@gmail.com</h4>
+        <Avatar
+          src={user.photoUrl && user.photoUrl}
+          className="sidebar__avatar"
+        >
+          {user.email[0].toUpperCase()}
+        </Avatar>
+        <h2>{user.displayName ? user.displayName : "Anonymous"}</h2>
+        <h4>{user.email && user.email}</h4>
       </div>
 
       <div className="sidebar__stats">

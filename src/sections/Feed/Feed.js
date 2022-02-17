@@ -16,8 +16,11 @@ import { db, serverTimestamp } from "../../backend/firebase";
 import "./Feed.css";
 import addDocument from "../../backend/addDocument";
 import getAllDocuments from "../../backend/getAllDocuments";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 
 function Feed() {
+  const user = useSelector(selectUser);
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
   const collectionName = "posts";
@@ -33,10 +36,13 @@ function Feed() {
     e.preventDefault();
 
     const post = {
-      name: "Desmond Oben",
-      description: "This is a firebase test",
+      name: user.displayName ? user.displayName : "Anonymous",
+      description:
+        user.email == "obendesmond2@gmail.com"
+          ? "OWNER OF APP: obendesmond2@gmail.com"
+          : user?.email,
       message: input,
-      photoUrl: "",
+      photoUrl: user.photoUrl || "",
       timestamp: serverTimestamp(),
     };
     // add post to posts document
