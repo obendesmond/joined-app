@@ -23,7 +23,8 @@ function Widgets() {
         <h2>LinkedIn News</h2>
         <InfoIcon />
       </div>
-      {newsArticle("Papa React is back", "Top news - 9099 readers")}
+      {newsArticle("Jesus IS COMING AGAIN", "Top news - 10000000 readers")}
+      {newsArticle("Desmond React is back", "Top news - 9099 readers")}
       {newsArticle("Corona Virus: UK updates", "Top news - 886 readers")}
       {newsArticle("Tesla hits new highs", "Cars & auto - 300 readers")}
       {newsArticle("Bitcoin breaks $22k", "Crypto - 8000 readers")}
