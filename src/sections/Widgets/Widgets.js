@@ -20,7 +20,7 @@ function Widgets() {
   return (
     <div className="widgets">
       <div className="widgets__header">
-        <h2>LinkedIn News</h2>
+        <h2>Desmond News</h2>
         <InfoIcon />
       </div>
       {newsArticle("Jesus IS COMING AGAIN", "Top news - 10000000 readers")}
