@@ -28,7 +28,7 @@ function Login() {
               email: userCredentials.user.email,
               uid: userCredentials.user.uid,
               displayName: userCredentials.user.displayName,
-              photoUrl: userCredentials.user.photoURL,
+              photoURL: userCredentials.user.photoURL,
             })
           );
         })
@@ -46,7 +46,7 @@ function Login() {
             const user = userCredentials.user;
             updateProfile(user, {
               displayName: name,
-              photoUrl: profilePic,
+              photoURL: profilePic,
             })
               .then(() => {
                 dispatch(
@@ -54,7 +54,7 @@ function Login() {
                     email: userCredentials.user.email,
                     uid: userCredentials.user.uid,
                     displayName: name,
-                    photoUrl: profilePic,
+                    photoURL: profilePic,
                   })
                 );
               })

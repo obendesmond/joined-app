@@ -7,6 +7,9 @@ import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 
+// react-flip-move
+import FlipMove from "react-flip-move";
+
 // components
 import InputOption from "../../components/InputOption/InputOption";
 import Post from "../../components/Post/Post";
@@ -42,7 +45,7 @@ function Feed() {
           ? "OWNER OF APP: obendesmond2@gmail.com"
           : user?.email,
       message: input,
-      photoUrl: user.photoUrl || "",
+      photoURL: user.photoURL || "",
       timestamp: serverTimestamp(),
     };
     // add post to posts document
@@ -82,16 +85,18 @@ function Feed() {
 
       {/* posts */}
 
-      {posts &&
-        posts.map(({ id, name, description, message, photoUrl }) => (
-          <Post
-            key={id}
-            name={name}
-            description={description}
-            message={message}
-            photoUrl={photoUrl}
-          />
-        ))}
+      <FlipMove>
+        {posts &&
+          posts.map(({ id, name, description, message, photoURL }) => (
+            <Post
+              key={id}
+              name={name}
+              description={description}
+              message={message}
+              photoURL={photoURL}
+            />
+          ))}
+      </FlipMove>
     </div>
   );
 }

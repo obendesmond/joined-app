@@ -23,7 +23,7 @@ function Sidebar() {
           alt="no photoURL"
         />
         <Avatar
-          src={user.photoUrl && user.photoUrl}
+          src={user.photoURL && user.photoURL}
           className="sidebar__avatar"
         >
           {user.email[0].toUpperCase()}

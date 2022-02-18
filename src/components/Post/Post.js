@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 // compo
 import InputOption from "../InputOption/InputOption";
 
@@ -10,11 +10,11 @@ import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 
 import "./Post.css";
 
-function Post({ name, description, message, photoUrl }) {
+const Post = forwardRef(({ name, description, message, photoURL }, ref) => {
   return (
-    <div className="post">
+    <div ref={ref} className="post">
       <div className="post__header">
-        <Avatar src={photoUrl && photoUrl}>{name[0].toUpperCase()}</Avatar>
+        <Avatar src={photoURL && photoURL}>{name[0].toUpperCase()}</Avatar>
         <div className="post__info">
           <h2>{name}</h2>
           <p>{description} </p>
@@ -33,6 +33,6 @@ function Post({ name, description, message, photoUrl }) {
       </div>
     </div>
   );
-}
+});
 
 export default Post;
